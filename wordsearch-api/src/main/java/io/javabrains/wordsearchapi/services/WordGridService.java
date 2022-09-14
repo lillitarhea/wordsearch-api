@@ -49,14 +49,18 @@ public class WordGridService {
                 contents[i][j]='_';
             }
         }
-        for(String word:words){
 
+
+
+        for(String word:words){
             Collections.shuffle(coordinates);
+
             for(Coordinates coordinate:coordinates){
                 int x=coordinate.x;
                 int y=coordinate.y;
+
                 Direction selectedDirection=getDirectionForFit(contents,word,coordinate);
-                //System.out.println(selectedDirection);
+
                 if(selectedDirection!=null)
                 {
                     switch(selectedDirection)
@@ -103,9 +107,9 @@ public class WordGridService {
                             }
                             break;
                     }
-
+                    break;
                 }
-                break;
+
 
 
 
@@ -126,7 +130,7 @@ public class WordGridService {
         Collections.shuffle(directions);
         for(Direction direction:directions){
             if(doesFit(contents, word, coordinate, direction)){
-                //System.out.println("I'm here");
+
                 return direction;
             }
         }
@@ -136,35 +140,35 @@ public class WordGridService {
     public boolean doesFit(char[][] contents, String word, Coordinates coordinate, Direction direction)
     {
         int grid_size=contents[0].length;
-        //System.out.println(word+ "" +direction);
+
         int wordLength=word.length();
 
         switch(direction)
         {
             case HORIZONTAL:
-                //System.out.print(coordinate.y + wordLength>grid_size);
+
                 if(coordinate.y + wordLength > grid_size)  return false;
                 for(int i=0;i<wordLength;i++){
-                    //System.out.print(contents[coordinate.x][coordinate.y+i]);
-                    if(contents[coordinate.x][coordinate.y + i] != '_') return false;
+                    char current_letter= contents[coordinate.x][coordinate.y + i];
+                    if( current_letter!= '_' && current_letter!= word.charAt(i) ) return false;
                 }
                 break;
 
             case VERTICAL:
-                //System.out.print(coordinate.x + wordLength > grid_size);
+
                 if(coordinate.x + wordLength > grid_size)  return false;
                 for(int i=0; i<wordLength ;i++){
-                    //System.out.print(contents[coordinate.x + i][coordinate.y]);
-                    if(contents[coordinate.x + i][coordinate.y] != '_') return false;
+                    char current_letter=contents[coordinate.x + i][coordinate.y];
+                    if( current_letter!= '_' && current_letter!= word.charAt(i) ) return false;
                 }
                 break;
 
             case DIAGONAL:
-                //System.out.print(coordinate.x + wordLength > grid_size || coordinate.y + wordLength >grid_size);
+
                 if(coordinate.x + wordLength > grid_size || coordinate.y + wordLength >grid_size)  return false;
                 for(int i=0;i < wordLength;i++){
-                    //System.out.print(contents[coordinate.x + i][coordinate.y + i]);
-                    if(contents[coordinate.x + i][coordinate.y + i] != '_') return false;
+                    char current_letter=contents[coordinate.x + i][coordinate.y + i];
+                    if(current_letter!= '_' && current_letter!= word.charAt(i)) return false;
                 }
                 break;
 
@@ -172,8 +176,8 @@ public class WordGridService {
 
                 if(coordinate.y< wordLength)  return false;
                 for(int i=0;i<wordLength;i++){
-
-                    if(contents[coordinate.x][coordinate.y - i] != '_') return false;
+                    char current_letter=contents[coordinate.x][coordinate.y - i];
+                    if(current_letter!= '_' && current_letter!= word.charAt(i)) return false;
                 }
                 break;
 
@@ -182,8 +186,8 @@ public class WordGridService {
 
                 if(coordinate.x < wordLength)  return false;
                 for(int i=0; i<wordLength ;i++){
-                    //System.out.print(contents[coordinate.x + i][coordinate.y]);
-                    if(contents[coordinate.x - i][coordinate.y] != '_') return false;
+                    char current_letter=contents[coordinate.x - i][coordinate.y];
+                    if(current_letter!= '_' && current_letter!= word.charAt(i)) return false;
                 }
                 break;
 
@@ -191,8 +195,8 @@ public class WordGridService {
 
                 if(coordinate.x < wordLength || coordinate.y > wordLength)  return false;
                 for(int i=0;i < wordLength;i++){
-
-                    if(contents[coordinate.x - i][coordinate.y - i] != '_') return false;
+                    char current_letter=contents[coordinate.x - i][coordinate.y - i];
+                    if(current_letter!= '_' && current_letter!= word.charAt(i)) return false;
                 }
                 break;
 

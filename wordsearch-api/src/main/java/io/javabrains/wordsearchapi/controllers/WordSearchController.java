@@ -16,9 +16,10 @@ public class WordSearchController {
     WordGridService wordGridService;
 
     @GetMapping("/wordgrid")
+    @CrossOrigin(origins ="http://localhost:1234")
     public String createGrid(@RequestParam int gridSize, @RequestParam String wordList ){
 
-        List<String> words= Arrays.asList(wordList.split("-"));
+        List<String> words= Arrays.asList(wordList.split(","));
 
         char grid[][]=wordGridService.generateGrid(words,gridSize);
         String gridString="";
